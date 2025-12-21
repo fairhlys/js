@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .box {
+            margin: 100px auto;
+            width: 700px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .down {
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-template-rows: repeat(5, 1fr);
+            justify-content: space-between;
+            align-content: center;
+        }
+
+        span {
+            margin: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        let students = [
+            { name: '小明', age: 18, gender: '男', home: 'china' },
+            { name: '小红', age: 19, gender: '女', home: 'china' },
+            { name: '小刚', age: 17, gender: '男', home: 'china' },
+            { name: '小丽', age: 16, gender: '女', home: 'china' }
+        ]
+        for (let i = 0; i < students.length; i++) {
+            for (let k in students[i]) {
+                console.log(students[i][k]);
+            }
+        }
+        document.write(`<div class="box">`)
+        document.write(`<h1>学生列表</h1>`)
+        document.write(`<div class="down">`)
+        document.write(`<span>序号</span>`)
+        document.write(`<span>姓名</span>`)
+        document.write(`<span>年龄</span>`)
+        document.write(`<span>性别</span>`)
+        document.write(`<span>国籍</span>`)
+        for (let i = 0; i < students.length; i++) {
+            document.write(`<span>${(i + 1)}</span>`);
+            for (let k in students[i]) {
+                document.write(`<span>${students[i][k]}</span>`);
+            }
+        }
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .btn1{
+        width:150px;
+        height:40px;
+        font-size:24px;
+        font-family:'隶书';
+        background-color: yellow;
+        color:rgb(138, 51, 51);
+        border:3px solid rgb(138, 51, 51);
+        border-radius: 5px;
+    }
+    </style>
+    <!-- 
+     js介绍：
+        js：JavaScript的简称，是一种脚本语言，是一种运行在客户端（浏览器）的编程语言，实现人机交互效果
+        可以做网页特效，表单验证，数据交互，服务器编程(node.js)
+        js的组成：
+            1.核心js：ECMAScript（ES），js基础语法核心知识
+            webapis
+            2.浏览器对象模型：BOM
+            3.文档对象模型：DOM
+        js的书写位置：
+            1.行内
+            2.内部，在html文件内，写在body标签里面
+            3.外部,一般写在以.js结尾的文件里面,通过script标签引入到html页面里面,此时script标签中间无需写代码,否则会被忽略
+        js的输入和输出语法:
+            1.输出语法:
+                    1.document.write('要输出的内容');向body输出内容,如果输出的内容写的是标签,也会被解析成网页元素
+                    2.alert('要输出的内容');页面弹出对话框
+                    3.console.log('要输出的内容');在控制台输出内容,控制台输出语法,供调试 
+            2.输入语法:
+                    prompt('请输入内容');显示一个对话框,对话框中包含一条文字信息,用来提示用户输入文字
+        js代码执行顺序:
+            文档流,从上往下
+            alert()和prompt()会跳过页面渲染先被执行
+        字面量:
+            是在计算机中描述事物.
+
+
+
+    -->
+    <!--
+    js引入方式：
+    1.内嵌式 在head中通过script标签定义脚本代码
+    2.引入外部脚本文件 在head中引入一对script标签引入外部js文件
+    注意：
+         1.一个html中可以有多个script标签，script是双标签
+         2.一个script标签不能在引入外部js脚本文件的同时，还定义function，一个script标签只能干一件事
+         3.script标签如果用于引入外部js文件，中间最好不要有任何字符，包括换行
+    -->
+   <!--  <script>
+        /*
+        1.如何声明函数 
+        Java中的函数 public void suprise(){}
+        script中为  function suprise(){}
+        2.函数如何和单击按钮的行为绑定在一起
+        onclick:单击鼠标
+        ondbclick：双击鼠标
+        3.如何弹窗提示
+        调用windows的alert()函数
+
+        alt+shift+a 区域注释
+        */
+       function suprise(){
+        alert("我是惊喜")
+       }
+    </script> -->
+    <script src="../脚本/bottom.js" type="text/javascript"></script>
+
+</head>
+<body>
+    <button class="btn1" onclick="suprise()">点我有惊喜</button>
+    <!-- 内部js -->
+     <!-- script放在html文件底部附近的原因是浏览器会按照代码在文件中的顺序加载html
+      如果先加载的js期望修改其下方的html,那么它可能由于html尚未被加载而失效  -->
+     <script>
+        alert('hello,js');
+        document.write('myself');
+        document.write('<h1>标题</h1>');
+        console.log('check');
+        prompt('输入姓名');
+     </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .box {
+        width: 200px;
+        height: 100px;
+        margin: 100px auto;
+        text-align: center;
+        line-height: 60px;
+    }
+</style>
+
+<body>
+    <script>
+        function getRandomColor(flag) {
+            let color = [];
+            if (flag == 'true') {
+                let j = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'a', 'b', 'c', 'd', 'e', 'f'];
+                for (let i = 0; i < 6; i++) {
+                    color[i] = j[Math.floor(Math.random() * j.length)]
+                }
+                document.write(`<div class="box" style="background-color:#${color[0]}${color[1]}${color[2]}${color[3]}${color[4]}${color[5]}">#${color[0]}${color[1]}${color[2]}${color[3]}${color[4]}${color[5]}</div>`);
+            }
+            else {
+                for (let i = 0; i < 3; i++) {
+                    color[i] = Math.floor(Math.random() * 256);
+                }
+                document.write(`<div class="box" style="background-color:rgb(${color[0]},${color[1]},${color[2]});">rgb(${color[0]},${color[1]},${color[2]})</div>`);
+            }
+        }
+        let flag = prompt("输入true或者false");
+        getRandomColor(flag);
+
+    </script>
+</body>
+
+</html>

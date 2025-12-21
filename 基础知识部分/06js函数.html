@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+</head>
+
+<body>
+  <script>
+
+    /*
+    函数声明的语法：
+       1.function 函数名(){
+       函数体 }
+       命名常用动词约定
+    函数的调用:
+       函数名();
+    函数的传参:
+      数组和变量的传参都是给变量名就行
+      逗号隔开参数,参数不用给类型,和java不同;
+      调用函数的括号里面的参数称为实参,函数声明上的括号内的参数称为形参
+      当调用函数不给参数时,函数的形参会被认为是undefined,参与运算后得到的是NaN.
+      如果想要用户不输入实参,可以给形参默认值,可以默认形参为0:
+          function getSum(x=0,y=0){
+          return x+y;  }这样就算不给实参,结果也是0
+    函数的返回值:
+      F11在控制台逐步调试
+      return后面的数据不要换行
+      函数没有return,默认的返回值是undefined
+      如果想要返回多个值,可以写成数组的形式返回,例如想要返回max和min,那么就return [min,max];
+    函数细节补充:
+        两个相同的函数,后面的会覆盖前面的函数
+        在javascript中,实参的个数和形参的个数可以不一致
+            如果形参过多,会自动填上undefined
+            如果实参过多,那么多余的实参会被忽略
+    作用域:
+        全局作用域:script标签内部或者一个独立的js文件
+        局部作用域
+    匿名函数:不给函数名的函数.
+        function(){
+        }
+        没有名字的函数无法直接使用,使用方式:
+                函数表达式:将匿名函数赋值给一个变量,并且通过变量名称进行调用
+                      语法:
+                          let fn = function(){
+                          }
+                          此时fn为函数名
+                      函数表达式和具名函数的不同:
+                            具名函数中,函数的声明和函数的调用,两者顺序很随意
+                            函数的表达式不行,函数的调用必须在函数的声明之后
+                立即执行函数:避免全局变量之间的污染,立即执行函数里面的参数和函数的作用域就是这个立即执行函数
+                      语法:(function(){})();(这里的分号是必须的)
+                      个人理解:将整个函数的实现看作函数名,后面的()就是其调用
+                      因此可以:
+                      (function(x,y){
+                      return x+y})(1,2);
+                      不过也可以(function(){}()),个人不推荐,不好理解
+
+
+
+    和java相比的特点
+           1.没有访问修饰符
+           2.没有返回值类型，也没有void，如果有值要返回，直接return即可
+           3.没有异常列表
+           4.调用方法时，实参和形参在数量上可以不一致，在方法内部可以通过arguments获得调用的实参
+           5.函数也可以作为一个参数传递给另一个方法
+    */
+    function sayHi() {
+      console.log('Hi');
+    }
+    function addSum(a, b) {
+      return a + b;
+    }
+    function addTo100() {
+      let sum = 0;
+      for (let i = 1; i <= 100; i++) {
+        sum += i;
+      }
+      return sum;
+    }
+    sayHi();
+    sayHi();
+    sayHi();
+    sayHi();
+    let sum = addTo100();
+    console.log(sum);
+    let sex = function () {
+      console.log('你好');
+    }
+    sex();
+    (function () {
+      let num=10;
+      console.log('do it now')
+    })();
+    (function(){
+      let num=20;
+    })();
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .all {
+        display: block;
+        margin: 100px auto 0;
+        width: 20px;
+        height: 20px;
+        background-color: pink;
+    }
+
+    .line {
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+        width: 50px;
+        height: 200px;
+        background-color: pink;
+    }
+</style>
+
+<body>
+    <input type="checkbox" class="all">
+    <div class="line">
+        <input type="checkbox">
+        <input type="checkbox">
+        <input type="checkbox">
+        <input type="checkbox">
+    </div>
+    <script>
+        const all = document.querySelector('.all');
+        const option = document.querySelectorAll('.line input');
+        function judge(option = [], all) {
+            let flag = 0;
+            for (let i = 0; i < option.length; i++) {
+                if (!option[i].checked) {
+                    flag = 1;
+                    break;
+                }
+            }
+            if (!flag) {
+                all.checked = true;
+            }
+        }
+        for (let i = 0; i < option.length; i++) {
+            option[i].addEventListener('click', function () {
+                if (option[i].checked) {
+                    judge(option, all);
+                }
+                else {
+                    if (all.checked) {
+                        all.checked = false;
+                    }
+                }
+            })
+        }
+        all.addEventListener('click', function () {
+            for (let i = 0; i < option.length; i++) {
+                if (all.checked) {
+                    option[i].checked = true;
+                }
+                else {
+                    option[i].checked = false;
+                }
+            }
+        })
+        //document.queryselector('.line input:checked').length
+    </script>
+</body>
+
+</html>

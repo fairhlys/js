@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button>按钮</button>
+    <input type="text">
+    <script>
+        /* 
+        事件监听（绑定）
+            目的：能够给DOM对象添加事件监听
+            事件：编程时系统内发生的动作或者发生的事情
+            事件监听：让程序检测是否有事件产生，一旦有事件触发，就立即调用一个函数做出响应，也称为绑定事件或注册事件
+            语法：
+                元素对象.addEventListener('事件类型',要执行的函数);
+            事件监听三要素：
+                1.事件源：被事件触发的dom元素
+                2.事件类型：用什么方式触发，比如鼠标单击click，鼠标经过mouseover等
+                    1.click：鼠标点击
+                    2.mouseenter：鼠标经过
+                    3.mouseleave：鼠标离开
+
+                    4.focus：获得焦点/光标 一般用于表单
+                    5.blur：失去焦点
+                    6.keydown：键盘按下触发
+                    7.keyup：键盘抬起触发
+
+                    8.input：用户输入事件，一般用于搜索时的下拉表单
+                    9.change:输入内容value变化，当然焦点失去的时候且内容改变时触发
+                    10.mousemove:鼠标移动事件，同时
+                3.事件调用的函数：触发后的响应，响应不一定是事件源做出的
+            注意：事件类型要加引号，函数是事件触发后执行的，每次触发执行一次
+        其余版本的事件监听：
+            事件源.on事件 = function(){};
+            比如说：start.onclick = function(){alert('start');}
+            但是这样相当于函数表达式的写法，前面的事件源.事件相当于函数名，因此如果紧挨着在
+            下面继续写start.onclick = function(){alert('end');}，那么点击两次，就只能触发两次的end，后一个函数会覆盖前一个。
+            但是addeventlistener就没这个问题了，因为它本身是个方法而不是函数
+
+        事件监听和函数一定要区分开来，如果事件监听里面的函数是个匿名函数，那么返回值接受不到，
+        应该先定义函数，然后再放在事件监听里面
+
+
+        */
+        const btn = document.querySelector('button');
+        btn.addEventListener('click', function () {
+            alert('点击触发');
+        })
+        const input = document.querySelector('input');
+        input.addEventListener('focus', function () {
+            console.log('focus');
+        })
+        input.addEventListener('blur', function () {
+            console.log('blur');
+        })
+    </script>
+</body>
+
+</html>

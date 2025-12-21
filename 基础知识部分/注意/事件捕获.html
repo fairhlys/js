@@ -1,0 +1,25 @@
+<div class="grandparent">
+    <div class="parent">
+        <div class="child">点击我</div>
+    </div>
+</div>
+
+<script>
+    // 捕获阶段处理（从上到下）
+    document.querySelector('.grandparent').addEventListener('click', () => {
+        console.log('爷爷元素 - 捕获');
+    }, true);
+
+    document.querySelector('.parent').addEventListener('click', () => {
+        console.log('父元素 - 捕获');
+    }, true);
+
+    document.querySelector('.child').addEventListener('click', () => {
+        console.log('子元素 - 目标');
+    });
+
+    // 输出顺序：
+    // 爷爷元素 - 捕获
+    // 父元素 - 捕获
+    // 子元素 - 目标
+</script>

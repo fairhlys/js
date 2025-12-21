@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    div {
+        width: 200px;
+        height: 200px;
+        background-color: lightblue;
+    }
+</style>
+
+<body>
+    <!-- 
+    节流
+        在前端开发中，有些事件会频繁触发，比如滚动事件、窗口调整大小事件、鼠标移动事件等，如果每次事件触发都执行相应的处理函数，可能会导致性能问题。节流是一种优化技术，可以限制函数的执行频率，从而提高性能。
+        和防抖的区别：
+            防抖：在事件触发n秒后执行函数，如果在n秒内再次触发事件，则重新计时，直到n秒后才执行函数。适用于输入框实时搜索等场景。
+            节流：在事件触发时立即执行函数，然后在n秒内不再执行函数，直到n秒后再次触发事件才执行函数。适用于滚动加载等场景。
+        实现节流的方法：
+            1.使用定时器实现节流：
+                语法：
+                    function throttle(func, wait) {
+                        let timeout;
+                        return function (...args) {
+                            if (!timeout) {
+                                func.apply(this, args);
+                                timeout = setTimeout(() => {
+                                    timeout = null;
+                                    //在定时器里面清除定时器，timeout是无法清除的，因此不能使用clearTimeout，只能置为null
+                                }, wait);
+                            }
+                        };
+                    }
+                解释：
+                    func：要节流处理的函数
+                    wait：间隔的毫秒数
+                    timeout：定时器变量
+                    返回一个新的函数，该函数在被调用时，会先检查是否有未完成的定时器，如果没有，则立即执行func函数，并设置一个定时器，等待wait毫秒后清除定时器；如果有未完成的定时器，则不执行func函数。
+            2.使用时间戳实现节流：
+                语法：
+                    function throttle(func, wait) {
+                        let previous = 0;
+                        return function (...args) {
+                            const now = Date.now();
+                            if (now - previous >= wait) {
+                                func.apply(this, args);
+                                previous = now;
+                            }
+                        };
+                    }
+                解释：
+                    func：要节流处理的函数
+                    wait：间隔的毫秒数
+                    previous：上次执行func函数的时间戳
+                    返回一个新的函数，该函数在被调用时，会获取当前时间戳now，并与上次执行func函数的时间戳previous进行比较，如果两者之差大于等于wait，则立即执行func函数，并更新previous为当前时间戳now；否则不执行func函数。
+        3.lodash提供的节流函数：_.throttle(func, [wait=0], [options={}])
+            func：要节流处理的函数
+            wait：间隔的毫秒数
+            options：配置选项
+                leading：是否在间隔开始前调用函数，默认true,具体来说就是第一次触发时是否立即执行函数
+                trailing：是否在间隔结束后调用函数，默认true，具体来说就是停止触发n秒后是否执行函数
+        使用节流函数：
+            const throttledFn = throttle(originalFn, 300);
+            element.addEventListener('event', throttledFn);
+    -->
+    <div></div>
+</body>
+<script src="./lodash.min.js"></script>
+<script>
+    const box = document.querySelector('div');
+    let i = 1;
+    function mouseMove() {
+        box.innerHTML = i++;
+    }
+    box.addEventListener('mousemove', _.throttle(mouseMove, 500, { leading: true, trailing: false }));
+</script>
+
+</html>

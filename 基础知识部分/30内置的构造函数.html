@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 
+    1.对于基本数据类型，js底层已经把它们包装成了引用数据类型，所以它们也有属性和方法
+      它们也有专门的构造函数，称为包装函数
+    2.内置的构造函数：
+        1.Object：内置的构造函数，用于创建普通对象
+            三个静态方法：
+                1.Object.keys(a)静态方法获取对象中所有属性(键)名为一个数组
+                2.Object.values(a)静态方法获取对象中所有的属性值为一个数组
+                3.Object.assign(a,b)静态方法常用于对象拷贝,b拷贝给a，经常用来添加属性
+                    Object.assign(a,{name:'cool'});
+        2.Array:内置的构造函数，用于创建数组，不过建议用字面量创建
+            实例属性和方法：
+                foreach
+                filter
+                map
+                reduce：累计器，返回累计处理的结果，经常用于求和等
+                join
+                find:查找元素，返回符合测试条件的第一个数组元素值，没有则返回undefined
+                every:检测数组所有元素是否都符合指定条件，如果所有元素都通过检测则返回true，否则false
+                some：                      有符合指定条件的数组元素则返回true
+                concat：合并两个数组
+                findIndex：查找索引值
+            静态方法：
+            from:伪数组转换为真数组，但是参数是数组名
+                const real = Array.from(arguments);总所周知，arguments是个伪数组，动态参数
+        3.String:包装类型，和number，boolean一个类型
+            实例属性和方法：
+                1.length属性：
+                2.split('分隔符')：用来将字符串分为数组，检测数组中的分隔符，将分隔符间的化为一个数组元素,返回数组
+                3.substring(需要截取的第一个字符的索引[,结束字符的索引]):方法返回一个字符串在开始索引到结束索引之间的一个子集，或从开始索引到结尾的一个子集
+                索引从0开始,截取的索引号不包括在内
+                4.startsWith(检测字符串[,检测位置索引号]):检测字符串在检测位置索引号处是否以某字符串开头(默认为0),索引依然从0开始，返回true或者false
+                5.includes(搜索的字符串[,当前字符的索引号]):判断一个字符串从当前字符串的索引号开始是否包含在另一个字符串中，返回true/false，索引依旧从0开始
+                6.toString():转换为字符串
+        gift.split(',').map(ele =>{}).join('');
+        4.Number:包装类型
+            实例方法和属性：
+                1.toFixed();设置保留小数位的长度,四舍五入,默认为0
+    -->
+    <script>
+        const o = { name: 'chat', data: 10 };
+        console.log(Object.keys(o));
+        console.log(Object.values(o));
+        const oo = {};
+        Object.assign(oo, o);
+        Object.assign(oo, { gender: 'male' });
+        console.log(oo);
+        const vit = '革命的伟大胜利,事业的无限继承';
+        const arr = vit.split(',')
+        console.log(arr);
+        console.log(vit.substring(0, 15));
+        console.log(vit.startsWith('伟大胜利', 3));
+        console.log(vit.includes('革命', 1));
+        const number = 9.9999;
+        console.log(number.toFixed(2));
+
+
+
+    </script>
+</body>
+
+</html>

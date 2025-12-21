@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 
+    异常处理
+        在js中，异常分为两种：语法错误和运行时错误
+            语法错误：代码书写不符合语法规范，浏览器在解析代码时就会报错，这种错误无法通过异常处理机制捕获
+            运行时错误：代码语法正确，但是在运行过程中出现的问题，比如访问不存在的对象属性，除以0等，这种错误可以通过异常处理机制捕获
+        1.异常处理机制：try...catch...finally语句
+            语法：
+                try {
+                    // 可能会抛出异常的代码
+                } catch (error) {
+                    // 处理异常的代码
+                } finally {
+                    // 无论是否发生异常，都会执行的代码
+                }
+            说明：
+                1.try块中的代码是需要监控的代码，如果try块中的代码抛出异常，就会跳转到catch块中执行
+                2.catch块中的代码用于处理异常，可以通过error对象获取异常信息
+                3.finally块中的代码无论是否发生异常，都会执行，一般用于释放资源等操作
+                4.如果try块中的代码没有抛出异常，则不会执行catch块中的代码，但是会执行finally块中的代码
+                5.finally块是可选的，可以省略
+                6.拦截错误，提示浏览器提供的错误信息，但是不中断程序的执行
+        2.throw语句：用于手动抛出异常，可以抛出任何类型的值，一般抛出Error对象
+            语法：
+                throw value;
+            说明：
+                1.value可以是任何类型的值，一般建议抛出Error对象或者其子类对象，这样可以提供更丰富的异常信息
+                2.抛出异常后，程序会立即停止执行，并跳转到最近的catch块中执行，如果没有catch块，则程序会终止并输出异常信息
+        3.debugger语句：用于在代码中设置断点，方便调试代码
+            语法：
+                debugger;
+            说明：
+                1.当代码执行到debugger语句时，如果浏览器的开发者工具打开了调试功能，程序会暂停执行，并进入调试状态
+                2.可以通过开发者工具查看变量的值，调用栈等信息，帮助定位和解决问题
+                3.debugger语句在生产环境中一般不建议使用，可以在开发环境中使用，调试完成后删除
+                4.相当于打断点
+    -->
+    <p>123</p>
+</body>
+<script>
+    function fn(x, y) {
+        if (!x || !y) {
+            throw new Error('参数不能为空');
+        }
+
+    }
+    function fn1() {
+        try {
+            const p = document.querySelector('.p')
+            p.style.color = 'red';
+        } catch (error) {
+            console.log(error.message);
+            throw new Error('处理异常时又发生了异常');
+        }
+        finally {
+            alert('结束');
+        }
+    }
+    fn1();
+</script>
+
+</html>

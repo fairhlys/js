@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .box {
+        margin: 100px auto;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        width: 300px;
+        height: 100px;
+    }
+
+    .data {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: skyblue;
+        width: 100px;
+        height: 100px;
+    }
+</style>
+
+<body>
+    <div class="box">
+        <div class="data"></div>
+        <div class="data"></div>
+        <div class="data"></div>
+    </div>
+    <script>
+        let timer = {
+            second: 0,
+            minute: 0,
+            hour: 0
+        }
+        function judgetime(timer) {
+            if (timer.second == 60) {
+                timer.minute++;
+                timer.second = 0;
+            }
+            if (timer.minute == 60) {
+                timer.minute = 0;
+                timer.hour++;
+            }
+        }
+        function outpu(timer, clock = []) {
+            if (timer.second < 10) {
+                clock[2].innerHTML = `0${timer.second}`;
+            }
+            else {
+                clock[2].innerHTML = timer.second;
+            }
+            if (timer.minute < 10) {
+                clock[1].innerHTML = `0${timer.minute}`;
+            }
+            else {
+                clock[1].innerHTML = timer.minute;
+            }
+            if (timer.hour < 10) {
+                clock[0].innerHTML = `0${timer.hour}`;
+            }
+            else {
+                clock[0].innerHTML = timer.hour;
+            }
+        }
+        let num = setInterval(() => {
+            timer.second++;
+            judgetime(timer);
+            const clock = document.querySelectorAll('.data');
+            outpu(timer, clock);
+        }, 1000);
+
+
+        //这里自动弹出箭头函数了，匿名函数应该也可以
+        // clearInterval(num);
+
+    </script>
+</body>
+
+</html>

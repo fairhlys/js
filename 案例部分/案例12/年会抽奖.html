@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .wrapper {
+        margin: 100px auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        width: 600px;
+        height: 500px;
+        background-color: pink;
+    }
+</style>
+
+<body>
+    <div class="wrapper">
+        <span>年会抽奖</span>
+        <h1>一等奖：<span id="first">...</span></h1>
+        <h3>二等奖：<span id="second">...</span></h3>
+        <h5>三等奖：<span id="third">...</span></h5>
+    </div>
+    <script>
+        const names = ['周杰伦', '刘德华', '周星驰', 'Faith', ' 张学友'];
+        const first = document.querySelector('.wrapper #first');
+        const second = document.querySelector('.wrapper #second');
+        const third = document.querySelector('.wrapper #third');
+        first.style.color = 'red';
+        let rating = Math.floor(Math.random() * names.length);
+        first.innerHTML = `<strong>${names[rating]}</strong>`;
+        names.splice(rating, 1);
+        rating = Math.floor(Math.random() * names.length);
+        second.innerHTML = `<strong>${names[rating]}</strong>`;
+        names.splice(rating, 1);
+        rating = Math.floor(Math.random() * names.length);
+        third.innerHTML = `<strong>${names[rating]}</strong>`;
+
+    </script>
+</body>
+
+</html>

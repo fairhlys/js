@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 
+    动态参数：函数的参数的个数不固定
+        arguments：本质上是伪数组，函数内部内置的为数组变量，包含了调用函数时传入的所有实参,动态获取传入函数的实参
+        实参索引从0开始，按照传入实参的从左往右，不能使用pop，push函数
+    剩余参数：
+        1.  ...是语法符号，置于函数形参的最后面，用于获取多余的实参，和arguments还是有区别
+            例如:function add(a,b,c,...arr){};调用add(1,2,3,4,5,6,7);那么剩余参数arr就是4,5,6,7；
+        2. 剩余参数得到的数组是个真数组，可以用pop，push等函数
+    展开运算符：
+        ...:将一个数组展开,不会修改原数组，典型应用就是求数组最大值(最小值)，合并数组
+        Math.max(...arr);直接输出数组的最大值
+        const arr = [...arr1,...arr2];合并数组
+    -->
+    <script>
+        function getSum() {
+            //arguments动态数组，只存在于函数当中
+            console.log(arguments);
+            let j = 0;
+            for (let i = 0; i < arguments.length; i++) {
+                j += arguments[i];
+            }
+            console.log(j);
+        }
+        getSum(2, 4, 5, 6, 10, 10)
+
+        function add(a, ...arr) {
+            console.log(arr);
+            console.log(...arr);
+            console.log(Math.max(...arr));
+        }
+        add(2, 3);
+        add(1, 2, 3, 4)
+    </script>
+</body>
+
+</html>

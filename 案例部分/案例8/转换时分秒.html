@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .box {
+        margin: 100px auto;
+        height: 100px;
+        width: 400px;
+        font-size: 20px;
+        color: black;
+        text-align: center;
+        line-height: 100px;
+    }
+</style>
+
+<body>
+    <script>
+        (function (sec) {
+            let relsec = [parseInt((sec % 60) / 10), parseInt((sec % 60) % 10)];
+            let min = sec / 60;
+            let relmin = [parseInt((min % 60) / 10), parseInt((min % 60) % 10)]
+            let hour = min / 60;
+            let relhour = [parseInt(hour / 10), parseInt(hour % 10)]
+            document.write(`
+        <div class="box">计算之后的时间是${relhour[0]}${relhour[1]}小时${relmin[0]}${relmin[1]}分${relsec[0]}${relsec[1]}秒
+        </div>
+        `)
+        })(Number(prompt('输入想要转换的秒数')))
+        /*
+        聪明的做法:
+        hour=hour>=10?hour:'0'+hour;
+        min=min>=10?min:'0'+min;
+        sec=sec>=10?sec:'0'+sec;
+        
+        */
+    </script>
+</body>
+
+</html>

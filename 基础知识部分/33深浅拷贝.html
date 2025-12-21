@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div></div>
+    <!-- 
+        深浅拷贝
+            开发中经需要复制一个对象，但是直接使用复制会出现问题，因为对象是引用类型，复制的只是地址，所以修改新对象会影响原对象
+            浅拷贝：只复制对象的第一层属性，如果属性值是基本类型，那么复制的是值，如果属性值是引用类型，那么复制的是地址
+                拷贝对象：1.Object.assign(目标对象，源对象) 
+                          2.扩展运算符...  const newobj = {...oldobj} 或者Array.prototype.concat()方法
+            深拷贝：复制对象的所有层级属性，属性值无论是基本类型还是引用类型，复制的都是值,拷贝的是对象，不是地址
+                方法一：使用JSON.stringify()把对象转换为字符串，再使用JSON.parse()把字符串转换为对象
+                    const j = JSON.parse(JSON.stringify(obj));
+                    注意：这种方法无法复制函数，undefined，symbol等特殊属性
+                    只有满足以下所有条件时，才适合用 JSON.parse(JSON.stringify())：
+                    ✅ 拷贝的对象仅包含：字符串、数字、布尔、null、普通对象、数组；
+                    ❌ 函数、循环引用、 Date/RegExp/Symbol/NaN 等特殊类型；
+                    ❌ 依赖对象的不可枚举属性、原型链。
+                    如果你的对象包含函数、循环引用或特殊类型，这种方式就不适用了 —— 此时优先选 Lodash 的 _.cloneDeep（按需引入），或手写加了过滤和循环引用处理的深拷贝（如之前优化后的版本）。
+                方法二：使用递归函数遍历对象的所有属性，进行复制
+                    递归函数注意要加上return
+                    function deepCopy(newobj, oldobj) {
+                    for (let k in oldobj) {
+                        const val = oldobj[k];
+                        // 1. 处理 null：直接赋值
+                        if (val === null) {
+                            newobj[k] = null;
+                            continue;
+                        }
+                        // 2. 处理 object/array：创建新容器并递归
+                        if (typeof val === 'object') {
+                            newobj[k] = Array.isArray(val) ? [] : {};
+                            deepCopy(newobj[k], val);
+                        }
+                        // 3. 处理 function：直接赋值引用（大多数场景够用）
+                        else if (typeof val === 'function') {
+                            newobj[k] = val;
+                        }
+                        // 4. 基本类型：直接赋值
+                        else {
+                            newobj[k] = val;
+                        }
+                    }
+                }
+                    有缺陷，for in会遍历原对象的原型链上的属性和方法，可以使用hasOwnProperty()方法进行过滤
+                方法三：使用第三方库lodash的_.cloneDeep()方法进行深拷贝,不会遍历原对象的原型链上的属性和方法
+                const b = _.cloneDeep(obj);
+        
+    
+    -->
+</body>
+<script src="./lodash.min.js"></script>
+<script>
+    console.log(this); //在全局作用域中，this指向全局对象window
+    function test() {
+        console.log(this); //在函数作用域中，this指向全局对象window
+    }
+    test();
+    const obj = {
+        name: 'obj',
+        age: 20,
+        fn: function () {
+            console.log(100); //在对象的方法中，this指向该对象
+        },
+        family: {
+            person: 2
+        }
+    }
+    obj.fn();
+    const obj2 = {
+        name: 'obj2',
+    }
+    obj2.fn = obj.fn; //把obj的方法赋值给obj2
+    obj2.fn(); //此时this指向obj2
+    // const obj3 = { ...obj }
+    // console.log(obj3);
+    const obj3 = {}
+    Object.assign(obj3, obj)
+    obj3.age = 30; //修改obj3的age属性
+    obj3.fn = function () {
+        console.log(200);
+        //这里直接修改了原对象的方法，两者的地址是不一样的，因此对原对象的方法没有影响
+    }
+    obj3.family.person = 5; //修改obj3的family属性的person属性,由于family是引用类型，所以obj的family属性也会被修改
+    console.log(obj3);
+    console.log(obj);
+    const obj4 = { ...obj }
+
+    function getTime() {
+        document.querySelector('div').innerHTML = new Date().toLocaleString();
+        setTimeout(getTime, 1000);
+        //递归计时器
+    }
+    getTime();
+    function deepCopy(newobj, oldobj) {
+        for (let k in oldobj) {
+            const val = oldobj[k];
+            // 1. 处理 null：直接赋值
+            if (val === null) {
+                newobj[k] = null;
+                continue;
+            }
+            // 2. 处理 object/array：创建新容器并递归
+            if (typeof val === 'object') {
+                newobj[k] = Array.isArray(val) ? [] : {};
+                deepCopy(newobj[k], val);
+            }
+            // 3. 处理 function：直接赋值引用（大多数场景够用）
+            else if (typeof val === 'function') {
+                newobj[k] = val;
+            }
+            // 4. 基本类型：直接赋值
+            else {
+                newobj[k] = val;
+            }
+        }
+    }
+    const o = {}
+    deepCopy(o, obj)
+    console.log(o);
+    const b = _.cloneDeep(obj);
+    console.log(b);
+    const j = JSON.parse(JSON.stringify(obj));
+    console.log(j);
+
+
+
+</script>
+
+</html>

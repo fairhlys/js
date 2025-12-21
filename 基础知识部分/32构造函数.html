@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 
+    构造函数
+        存在浪费内存的问题，假如构造函数里面有方法，那么实例化的对象的方法都不一样，起码地址不一样，尽管它们的功能或许一样
+    如何让同一个构造函数实例化的对象共用一个方法,注意和静态方法区分开来，静态方法用不了this：
+        原型对象：实现方法共享
+            1.构造函数通过原型分配的函数是所有对象所共享的
+            2.js规定，每一个构造函数都有一个prototype属性，指向另一个对象，也即原型对象
+            3.依附于构造函数，其实例化的对象共享一个prototype
+            4.可以把不变的方法，直接定义在prototype对象上，这样所有实例化的对象就可以共享这些方法
+            5.构造函数和原型对象的this指的都是实例化的对象,不过注意箭头函数不能用this
+            6.可以利用prototype自己定义某些构造函数的方法，比如string，array，number之类的
+        constructor属性：原型对象的属性，该属性指向该原型对象的构造函数
+            如果有多个对象的方法，我们可以给原型对象采取对象形式赋值(这就不是添加新方法了,而是重写整个构造方法了,对于包装函数不要这样做)，但是这样会覆盖构造函数原型对象原来的内容，修改后的原型对象的constructor属性也就不指向原型对象的构造函数了
+            因此，可以在修改后的原型对象中添加一个constructor指向原来的构造函数
+        对象原型：
+            为社么实例对象可以使用构造函数的属性prototype里面的属性和方法呢：
+            实例化对象都有一个属性：__proto__ 指向构造函数的prototype原型对象，所以我们可以使用构造函数的prototype
+            注意：
+                __proto__是js非标准属性
+                [[prototype]]和_proto_意义相同
+                用来表明当前实例对象指向哪个原型对象prototype
+                __proto__对象原型也有一个constructor，指向构造该对象的构造函数
+                前后各两个 _
+                实例化对象的__proto__与构造函数的prototype是一致的，当然，该实例化对象必须是有着最新的prototype构造函数的实例化对象
+
+            总结：
+                实例化对象和构造函数，一个有__proto__，一个有prototype，都指向原型对象
+                实例化对象的__proto__和构造函数的prototype都有constructor，指向构造函数
+                实例的 __proto__ 本质就是构造函数的 prototype
+                原型属性 / 方法不会成为实例的自身属性，但实例可以直接访问,方法也是如此
+        原型继承：通过原型对象继承,将公共的属性封装成函数，实例化对象赋值给原型对象,但是由于prototype修改了，所以一定要修改constructor
+                语法：
+                子构造函数.prototype = new 父构造函数();此时不仅继承了父构造函数，也继承了其protoptype
+                子构造函数.prototype.constructor = 子构造函数;
+    原型链：基于原型对象的继承使得不同构造函数的原型对象关联在一起，形成一种链式结构
+        基础关联：实例对象.__proto__ === 其构造函数.prototype（这是原型链的起点）；
+        查找规则：访问对象属性 / 方法时，JS 先查「对象自身」→ 找不到就查 __proto__ → 还找不到就查 __proto__.__proto__ → 直到找到属性 / 方法，或走到原型链终点 null（找不到则返回 undefined）；
+        终点：所有原型链的最终顶端是 Object.prototype，而 Object.prototype.__proto__ === null（没有更上层的原型了）。
+        function man() {
+            this.dick = 1;
+        }
+        function woman() {
+            this.pussy = 1;
+        }
+        function Person() {
+            this.eyes = 2;
+            this.head1 = 1;
+        }
+        woman.prototype = new Person();
+        woman.prototype.baby = function () {
+            console.log('baby');
+        }
+        woman.prototype.constructor = woman;
+        man.prototype = new Person();
+        man.prototype.constructor = man;
+        const hjh = new man();
+        const chw = new woman();
+        console.log(chw);
+        chw.baby();
+        console.log(hjh.eyes);
+        从chw->chw的__proto__(person,也即man.prototype)->chw的__proto__的__proto__(Person()的prototype)->Object->Object的prototype
+        重点：本层的prototype来自上层的实例化，替换 prototype 后，必须手动重置 constructor，否则会指向父级构造函数
+        ：
+        xiaoshuai（Man 实例）
+        ↓ __proto__（第一层）
+        Man.prototype（Human 实例）
+        ↓ __proto__（第二层）
+        Human.prototype（Creature 实例）
+        ↓ __proto__（第三层）
+        Creature.prototype（生物原型）
+        ↓ __proto__（第四层）
+        Object.prototype（内置顶层原型）
+        ↓ __proto__（终点）
+        null
+        可以使用a instanceof b检测构造函数b的prototype属性是否在某个实例对象a的原型链上
+        一个构造函数的prototype本质上是上层函数的一个实例化对象
+    -->
+    <script>
+        function Star(name, age) {
+            this.uname = name;
+            this.age = age;
+        }
+        Star.prototype.sing = () => {
+            console.log('sing');
+        }
+        Array.prototype.sum = function () {
+            const all = this.reduce((prev, current) => {
+                return prev + current;
+            }, 0)
+            return all;
+        }
+        const arr = [1, 2, 3, 4];
+        console.log(arr.sum());
+        console.log(Array.prototype.constructor === Array);
+        Star.prototype = {
+            constructor: Star,
+            jump: function () {
+                console.log('dance');
+            },
+            cry: function () {
+                console.log('tears');
+            }
+        }
+        const whw = new Star('王洪文', 90)
+        console.log(Star.prototype.constructor);
+        console.log(Star.prototype);
+        console.log(whw.__proto__ === Star.prototype);
+        console.log(whw.__proto__.constructor === Star.prototype.constructor);
+        function man() {
+            this.dick = 1;
+        }
+        function woman() {
+            this.pussy = 1;
+        }
+        function Person() {
+            this.eyes = 2;
+            this.head1 = 1;
+        }
+        Person.prototype.legs = 2;
+        woman.prototype = new Person();
+        console.log(woman.prototype)
+        console.log(Person.prototype.__proto__ === Object.prototype);
+
+        woman.prototype.baby = function () {
+            console.log('baby');
+        }
+        woman.prototype.constructor = woman;
+        man.prototype = new Person();
+        man.prototype.constructor = man;
+        const hjh = new man();
+        const chw = new woman();
+        console.log(chw);
+        chw.baby();
+        console.log(hjh.eyes);
+        console.log(hjh instanceof Object);
+        console.log(Person instanceof Object);
+
+    </script>
+</body>
+
+</html>

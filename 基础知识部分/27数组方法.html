@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 
+    ForEach遍历数组：调用数组的每个元素，并将元素传递给回调函数,仅仅遍历，不返回，和map不一样
+        语法：
+            被遍历的数组.forEach(function(当前数组元素，当前数组索引号){
+            //ele，index
+            }) 函数体
+    filter筛选数组：返回被筛选出的元素组成的数组，不影响原数组
+        语法：
+            被筛选的数组.filter(function(ele,index){
+            return 条件
+            })
+    map()：可以遍历数组处理数据，并且返回新的数组
+        map也被称为映射。映射是个术语，指两个元素的集之间元素相互‘对应’的关系
+        map重点在于有返回值，foreach没有返回值
+        语法：
+        const arr = ['red','blue','green'];
+        const newarr = arr.map(function(ele,index)){
+        console.log(ele);数组元素
+        console.log(index);数组索引号
+        return ele + '颜色';
+        }
+    reduce():累计器，返回累计处理的结果，经常用于求和等
+        语法：将上一轮经过函数体的值返回给prev，遍历整数组，所以不仅可以做累加
+            arr.reduce(function(){},起始值)
+            arr.reduce(function(上一次的和,当前值){},起始值)
+                如果有起始值，则把初始值累加到里面
+            const num = [1, 2, 3, 4];
+            const data = num.reduce(function (prev, current) {
+            return prev + current
+            }, 10)
+            console.log(data);
+            牢记要得到的数据是什么类型的，初始值就设为相应的类型的值，比如0，[],{}
+
+    join()：用于把数组中的所有元素转换为一个字符串
+        语法：
+        数组名.join('');括号之间的字符，是指明数组个元素之间用哪个字符间隔，如果没有那么默认逗号间隔,空字符串才是无间隔连接
+    
+                    
+    confirm():判断框，括号内是提示文字
+
+    访问对象属性有两种合法方式：「点语法（.）」和「中括号语法（[]）」，两者核心等价，但中括号语法支持「动态属性名」（比如变量、特殊字符的属性名）
+    也就是说[]不仅能够代替. 的作用，还可以利用变量代表想要的属性
+    -->
+    <script>
+        const arr = ['green', 'red', 'blue'];
+        arr.forEach(function (ele, index) {
+            console.log(ele);
+        })
+        const num = [1, 2, 3, 4, 10, 6, 7];
+        const data = num.reduce((prev, current) => {
+            return prev + current
+        }, 10)
+        console.log(data);
+        const max = num.reduce((prev, current) => {
+            return prev > current ? prev : current;
+        })
+        console.log(max);
+        const fruits = ['apple', 'banana', 'apple', 'orange', 'banana', 'apple'];
+        // 起始值是 {}（空对象），累计值 acc 是对象
+        const fruitCount = fruits.reduce((acc, cur) => {
+            acc[cur] = (acc[cur] || 0) + 1; // 对对象类型的 acc 赋值属性，这里不能用arr.cur，因为cur是个变量
+            return acc; // 返回更新后的对象
+        }, {}); // 起始值：空对象
+        console.log(fruitCount); // {apple:3, banana:2, orange:1}
+
+        const arr1 = [{ name: 'a', salary: 10000 }, { name: 'b', salary: 20000 }, { name: 'c', salary: 12000 }];
+        const sum = arr1.reduce((prev, current) => {
+            return prev + current['salary'];
+        }, 0)
+        console.log(sum);
+        console.log(arr1.find(ele => ele['salary'] === 10000));
+        console.log(arr1.every(ele => typeof ele === 'object'));
+        console.log('革命的'.concat('伟大胜利'));
+        const spec = { size: '40cm*40cm', color: '黑色' };
+        console.log(spec['size'].concat(`/${spec['color']}`));
+        console.log(Object.values(spec).join('/'));
+
+
+
+    </script>
+</body>
+
+</html>

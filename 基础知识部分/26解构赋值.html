@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 
+    解构赋值：
+        1.数组解构：将数组的单元值快速批量赋值给一系列变量的简洁语法,数组解构前面需要加上分号
+        const [max, avg, min] = [100, 80, 60];
+        相当于：
+        const arr = [100,60,80];
+        const [max,min,avg] = arr;
+        还可以这样交换值：
+        let [max, avg, min] = [100, 80, 60];
+        [max, min] = [min, max];
+        语法：
+            1.赋值运算符 = 左侧的[]用于批量声明变量，右边数组的单元值将被赋值给左侧的变量
+            2.变量的顺序对应数组单元值的位置依次进行赋值操作
+            3.支持多维数组
+        2.对象解构：将对象属性和方法快速批量赋值给一系列变量的简洁语法
+            1.赋值运算符 = 左侧的{}用于批量声明变量，右边对象的属性值将被赋值给左侧的变量
+            2.对象属性的值将被赋值给与属性名相同的变量
+            3.注意解构的变量名不要和外面的变量名冲突，否则报错
+            4.对象中找不到与变量名一致的属性时变量值为undefined
+            5.如果确实有外部的变量名和属性名一样，可以给对象解构的变量名改名
+            旧变量名:新的变量名（注意旧变量名要和属性名一样）
+
+            const obj = {
+            name: 'teacher',
+            age: 18
+            }
+            const { name: username, age } = obj;
+            console.log(username, age);
+
+            6.解构数组对象：没什么特殊的，就是对象解构，加了个数组的套皮罢了。数组对象解构为数组的形式
+        终归就是[{[]}],按照储存的格式写就行了
+            7.如果要结构的对象的属性多于左边的变量，那么左边的变量只获取相同名字的属性值
+            const pig = [
+            {
+                uname: 'pep',
+                age: 17
+            },
+            {
+            }
+            ]
+            const [{ uname: pigname, age: pigage }, ,] = pig;
+            console.log(pigname, pigage);
+            7.多级对象解构:
+            const bear = {
+            num: 2,
+            twins: {
+                bear1: 'big',
+                bear2: 'small'
+            },
+            hunter: 'shooter'
+            }
+            const { num: nums, twins: { bear1, bear2 }, hunter } = bear;
+            console.log(nums, bear1, bear2, hunter);
+    -->
+    <script>
+        let [max, avg, min] = [100, 80, 60];
+        console.log(max, min);
+        [max, min] = [min, max]
+        console.log(max, min)
+        const maxmin = (max, min) => {
+            return max > min ? [max, min] : [min, max];
+        }
+        const [max1, min1] = maxmin(80, 90);
+        console.log(max1, min1);
+        let [a = 0, , c = 0, ...d] = [10, 20, [30, 40], 50, 60];
+        //数组解构，完全可以看作函数传参那样，还能给默认值，还有剩余参数，还能按需传入数值
+        console.log(a, c, d);
+        const obj = {
+            name: 'teacher',
+            age: 18
+        }
+        const { name: username, age } = obj;
+        console.log(username, age);
+        const pig = [
+            {
+                uname: 'pep',
+                age: 17
+            },
+            {
+            }
+        ]
+        const [{ uname: pigname, age: pigage }, ,] = pig;
+        console.log(pigname, pigage);
+        const bear = {
+            num: 2,
+            twins: {
+                bear1: 'big',
+                bear2: 'small'
+            },
+            hunter: 'shooter'
+        }
+        const { num: nums, twins: { bear1, bear2 } } = bear;
+        console.log(nums, bear1, bear2);
+
+
+
+
+    </script>
+</body>
+
+</html>

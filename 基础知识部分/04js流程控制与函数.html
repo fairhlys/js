@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /* 
+        表达式与语句:
+             表达式:任何有具体值的代码片段,比如:1+2,变量名,函数调用等
+             语句:完成某个特定功能的代码片段,比如:变量声明语句,条件语句,循环语句等
+         分支语句:
+            掌握流程控制
+             if语句:
+                 语法:
+                     if(条件){
+                         语句体
+                     }else if(条件){
+                         语句体
+                     }else{
+                         语句体
+                     }
+                 注意:
+                     1.可以有多个else if,但是只能有一个else
+                     2.else if和else都是可选的
+             switch语句:
+                 语法:
+                     switch(表达式){
+                         case 值1:
+                             语句体
+                             break;
+                         case 值2:
+                             语句体
+                             break;
+                         ...
+                         default:
+                             语句体
+                     }
+                 注意:
+                     1.break是可选的,但是建议加上,防止出现穿透现象
+                     2.default是可选的,一般放在最后
+         循环语句:
+             for循环:
+                 语法:
+                     for(初始化;条件;更新){
+                         语句体
+                     }
+                 注意:
+                     1.初始化,条件,更新都是可选的
+                     2.如果条件省略,默认值为true,即无限循环
+             while循环:
+                 语法:
+                     while(条件){
+                         语句体
+                     }
+            continue与break:
+                continue:跳过本次循环,进行下一次循环
+                break:跳出整个循环
+        */
+
+        //    let num1 = Number(prompt('请输入第一个数'));
+        //     let num2 = Number(prompt('请输入第二个数'));
+        //     let num3 = num1 > num2 ? num1 : num2
+        //     alert(`较大的数是${num3}`);
+        // let num1 = prompt('请输入一个数');
+        // num1 = num1 < 10 ? 0 + num1 : num1;
+        // alert(num1);
+        //arr.length属性可以获取数组的长度
+        //js要想输出换行,可以使用<br>标签,水平线可以使用<hr>标签
+        for (let i = 1; i <= 5; i++) {
+            for (let j = 0; j < i; j++) {
+                document.write('*');
+            }
+            document.write('<br>');
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+
+<body>
+    <script>
+        /* 
+        对象:js的一种数据类型,一种无序的数据集合,对象由属性和方法组成,属性是特征,方法是行为
+        对象的使用:
+            1.对象声明:
+                let 对象名 ={
+                属性名:属性值,
+                方法名:函数
+                }
+                每组属性之间用逗号隔开,和css不同
+                属性相当于依附于对象的变量
+            2.对象使用  空对象:let obj=null;
+                1.属性访问:
+                    语法:对象名.属性
+                对于多词属性或则-等属性,点操作就不能用了
+                    语法:对象名['属性名']
+                    比如说新增一个属性:
+                             'name-name':'name';
+                    新增的属性名是个字符串,那么就要用这种方式
+                2.新增属性:
+                    直接和赋值一样新增就行了,依旧是对象名.属性 = value;添加方法也是一样
+                3.对象的方法:
+                    方法名:function(){}
+                    调用方法时:对象名.方法名();
+                    和函数表达式的区别:
+                        let obj = function(){}
+                    多个方法之间用逗号分隔
+                4.遍历对象的属性和方法:能够遍历输出对象里面的元素:
+                    用for遍历对象的问题:
+                        1.对象没有像数组一样的length属性,无法确定长度
+                        2.对象里面是无序的键值对,没有规律,没有固定的索引
+                    因此采用一种新的for:
+                         for(let 索引 in 数组/对象);
+                         数组的索引是字符串类型的索引,就是'0','1','2'之类的,因此一般不用来遍历数组,用来遍历对象.
+                         对象中的索引是字符串类型的属性名和方法名
+                                因此输出要用对象名[索引]  (这里对照对象名['属性名'])
+                                输出方法时,会输出方法中除去方法名的其他部分
+                                输出属性时,只会输出属性的值
+                        for (let k in oldobj) 是遍历对象的「自身可枚举属性」 + 「原型链上的可枚举属性」 —— 这是 JS for...in 的原生特性。
+                5.内置对象:学会js为我们准备好的内置对象
+                    内置对象:js内部提供的对象,包括各种属性和方法给开发者调用
+                    比如说使用一些内置对象的方法document.write,console.log
+                    内置对象Math:
+                            random:生成0-1之间的随机数(包括0,不包括1) 
+                                Math.random()*10:0到10内的随机数
+                                Math.random()*5+5:5到10之间的随机数
+                                Math.random()*(M-N)+N:生成N到M之间的随机数
+                            ceil:向上取整
+                            floor:向下取整
+                            max:找最大数
+                            min:找最小数
+                            pow:幂运算  pow(4,2)四的二次方
+                            abs:绝对值
+                            sqrt:平方根
+                            PI:圆周率
+                            round:取里这个小数最近的整数,当小数值为0.5时,取大值,对于正负都是取大值
+         值类型:基本数据类型,在存储时遍历中存储的是值本身,数据本身存放在栈里面
+         引用类型:复杂数据类型,在存储时变量中存储的仅仅是地址(引用),地址存放在栈,内容在堆
+         只有普通对象、数组的 typeof 返回 'object'，函数的 typeof 会返回 'function'（唯一例外）。
+
+
+
+
+
+
+        */
+        let obj = {
+            uname: 'john',
+            age: 18,
+            gender: '男',
+            'address': 'China',
+            sayHi: function () {
+                console.log('Hi');
+            },
+            dance: function () {
+                console.log('dance');
+            }
+        }
+        console.log(obj);
+        console.log(typeof obj);
+        console.log(obj.uname);
+        console.log(obj['address']);
+        obj.uname = 'ronaldo';
+        console.log(obj);
+        obj.hobby = 'football';
+        console.log(obj);
+        obj.sayHi();
+        obj.dance();
+        let a = [1, 2, 3, 4, 5, 6, 7];
+        for (let k in a) {
+            console.log(a[k]);
+            console.log(k);
+            //这里的k其实是a的索引,但是是字符串的形式
+        }
+        for (let k in obj) {
+            console.log(k);
+            console.log(obj[k]);
+        }
+        let nums = [];
+        for (let i = 0; i < 10; i++) {
+            nums.push(Math.random() * 5 + 5);
+        }
+        console.log(nums);
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Document</title>
+
+</head>
+
+<body>
+      <script>
+            /* 
+            数组:
+                一种将一组数据存储在单个变量名下的方式,由于是弱数据类型,所以数组中可以存储不同类型的数据
+                 例:let arr=['苹果','香蕉',true,2];
+                语法:
+                    声明语法:
+                          let 数组名 = [数据1,数据2,...,数据n];
+                          let  arr = new Array(数据1,数据2,...,数据n);
+                          数据按顺序保存,从0开始排序
+                          空数组的声明和强数据类型语言也有差别:let a=[];
+                    访问数组元素:
+                          语法:数组名[下标/索引]
+                    更新数组元素:
+                          语法:数组名[下标/索引]=新值;
+                    数组的长度:
+                          语法:数组名.length
+                    遍历数组:
+                          使用for循环,通过下标依次访问数组中的每个元素
+                          console.log(arr);可以直接输出整个数组
+                    新增数组元素:
+                          1.在数组末尾加元素
+                          语法:数组名.push(新值);
+                          说明:在数组的末尾添加一个新元素,调用该方法时,返回值是新的数组长度
+                          2.在数组开头加元素
+                          语法:数组名.unshift(新值);
+                          说明:在数组的开头添加一个新元素,调用该方法时,返回值是新的数组长度
+                    删除数组元素:
+                          1.在数组末尾删除元素
+                          语法:数组名.pop();
+                          说明:从数组中删除最后一个元素,并返回该元素的值
+                          2.在数组开头删除元素
+                          语法:数组名.shift();
+                          说明:在数组的开头删除一个元素,并返回该元素的值
+                          3.删除数组中指定位置的元素:
+                          语法:数组名.splice(start,deleteCount);
+                          说明:从起始位置开始(按照下标来),删除几个元素
+                    数组排序:
+                          升序:
+                              数组名.sort(function(a,b){
+                                   return a-b;
+                              })
+                          降序:
+                              数组名.sort(function(a,b){
+                                   return b-a;
+                              })
+                    js中数组的的pop,shift,push,unshift使得数组不同于java中的数组,它还可以自身就是栈和堆,它既可以先进先出,也可以先进后出
+            */
+            let arr = ['苹果', '香蕉', true, 2];
+            console.log(arr);
+            let length = arr.push('橘子');
+            console.log(arr);
+            console.log(`数组的长度是${length}`);
+            length = arr.unshift('西瓜');
+            console.log(arr);
+            console.log(`数组的长度是${length}`);
+            let removedElement = arr.pop();
+            console.log(arr);
+            console.log(`被删除的元素是${removedElement}`);
+            console.log(`被删除的元素是${arr.shift()}`);
+            console.log(arr);
+            arr.splice(1, 2);
+            console.log(arr);
+      </script>
+</body>
+
+</html>

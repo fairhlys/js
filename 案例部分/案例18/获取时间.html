@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .box {
+        display: flex;
+        flex-direction: column;
+        width: 200px;
+        height: 100px;
+        margin: 100px auto;
+    }
+</style>
+
+<body>
+    <div class="box">
+        <div class="head"></div>
+        <h3>下班</h3>
+        <div class="datenow"></div>
+        <div class="end">24:00:00</div>
+    </div>
+    <script>
+        const head = document.querySelector('.box .head');
+        setInterval(function () {
+            const date = new Date();
+            head.innerHTML = date.toLocaleDateString();
+        }, 1000)
+        const dateIner = document.querySelector('.datenow');
+        setInterval(() => {
+            const mid = (+new Date('2025-11-24 24:00:00')) - (+new Date());
+            const seconds = (mid / 1000) % 60;
+            const minutes = (mid / 1000) / 60 % 60;
+            const hours = mid / 1000 / 60 / 60 % 24;
+            dateIner.innerHTML = `0${Math.floor(hours)}:0${Math.floor(minutes)}:${Math.floor(seconds)}`;
+        }, 1000);
+
+
+        console.log(mid)
+    </script>
+</body>
+
+</html>

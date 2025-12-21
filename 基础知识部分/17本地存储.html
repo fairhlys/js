@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 
+    本地存储：只能存储字符串，即使是数值型，存储的也是字符串
+            1.数据存储在用户浏览器中
+            2.设置，读取方便，甚至页面刷新不丢失数据
+            3.容量较大,sessionStorage和localStorage大约5M左右
+                1.localStorage:可以将数据永久存储在本地（用户电脑），除非手动删除，否则关闭页面也会存在
+                                可以多窗口（页面）共享（同一浏览器可以共享）
+                                以键值对的形式存储使用,键永远加引号
+                    语法：
+                        存储数据：这里既是增加数据，也是修改数据
+                            localStorage.setItem(key,value);key和value，提前声明了就不用加引号
+                        获取数据：键作为关键
+                            localStorage.getItem(key);
+                        删除本地存储：只删除键就可以
+                            localStorage.removeItem(键)
+                2.sessionStorage：生命周期是关闭浏览器窗口
+                                  在同一个窗口(页面)下数据可以共享
+                                  以键值对的形式存储使用
+                                  用法跟localStorage基本一致
+    JSON对象：属性和值都有引号，而且统一是双引号
+    存储复杂数据类型：
+        本地只能存储字符串，无法存储复杂数据类型
+        需要将复杂数据类型转换为JSON字符串，再存储到本地,模板字符串不行
+            语法：JSON.stringfy(复杂数据类型)
+            相当于将对象转换为JSON字符串
+        然后需要将JSON字符串转换为对象进行使用获取
+            语法：JSON.parse(json字符串)
+            JSON.parse(localstorage.getitem(键))
+
+    可以先存数据，再拿数据放入数组中
+    可以存放数组
+        localStorage.setItem('arr', JSON.stringify(arr));
+        const local = JSON.parse(localStorage.getItem('arr'));
+        对数组改变了之后重新赋值给localstorage里面相同的key
+
+
+        字符串拼接新思路：利用map()和join()数组方法实现字符串拼接
+
+                    map()：可以遍历数组处理数据，并且返回新的数组
+                        map也被称为映射。映射是个术语，指两个元素的集之间元素相互‘对应’的关系
+                        map重点在于有返回值，foreach没有返回值
+                        语法：
+                        const arr = ['red','blue','green'];
+                        const newarr = arr.map(function(ele,index)){
+                        console.log(ele);数组元素
+                        console.log(index);数组索引号
+                        return ele + '颜色';
+                        }
+                    join()：用于把数组中的所有元素转换为一个字符串
+                        语法：
+                            数组名.join('');括号之间的字符，是指明数组个元素之间用哪个字符间隔，如果没有那么默认逗号间隔,空字符串才是无间隔连接
+                    
+                    confirm():判断框，括号内是提示文字，一般是confirm(){}
+
+
+    -->
+    <script>
+        localStorage.setItem('uname', 'pink');
+        console.log(localStorage.getItem('uname'));
+        localStorage.removeItem('uname');
+        const obj = {
+            uname: 'pink',
+            gender: '男',
+            age: 18
+        }
+        console.log(JSON.stringify(obj));
+        localStorage.setItem('obj', JSON.stringify(obj));
+        const data = JSON.parse(localStorage.getItem('obj'));
+        console.log(data);
+        localStorage.removeItem('obj')
+        const arr = ['red', 'blue', 'green'];
+        const newarr = arr.map(function (ele, index) {
+            console.log(ele);
+            console.log(index);
+            return ele + '颜色';
+        })
+        console.log(newarr.join());
+        // if (confirm('选择')) {
+        //     alert('yes');
+        // }
+    </script>
+</body>
+
+</html>

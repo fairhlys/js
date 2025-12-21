@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        /* 
+        array:
+        search:
+
+        */
+        function doubleFind(a = [], min, max, data) {
+            if (min == max) {
+                return -2;
+            }
+            if (data === a[parseInt((min + max) / 2)]) {
+                return parseInt((min + max) / 2);
+            }
+            else if (data < a[parseInt((min + max) / 2)]) {
+                max = parseInt((min + max) / 2);
+                return doubleFind(a, min, max - 1, data);
+            }
+            else {
+                min = parseInt((min + max) / 2);
+                return doubleFind(a, min + 1, max, data);
+            }
+        }
+
+        // let a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        // let num = doubleFind(a, 0, a.length - 1, Number(prompt('输入查找的值')));
+        // console.log(num + 1);
+        function findCrystal(a = []) {
+            const jmpAmount = parseInt(Math.sqrt(a.length));
+            let i = jmpAmount;
+            for (; i < a.length; i += jmpAmount) {
+                if (a[i] === 0) {
+                    break;
+                }
+            }
+            i -= jmpAmount;
+            for (let j = 0; j < jmpAmount && i < a.length; j++, i++) {
+                if (a[i] === 0) {
+                    return i + 1;
+                }
+            }
+            return -2
+        }
+        let a = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        let place = findCrystal(a);
+        console.log(place);
+    </script>
+</body>
+
+</html>

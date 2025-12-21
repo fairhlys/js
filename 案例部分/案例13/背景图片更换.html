@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>轮播图</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .box {
+        margin: 100px auto 0;
+        width: 400px;
+        height: 300px;
+        background: url(./1.png) no-repeat top center/cover;
+        cursor: pointer;
+    }
+
+    .footer {
+        width: 400px;
+        margin: 0 auto;
+        height: 100px;
+    }
+
+    ul {
+        display: flex;
+        height: 100px;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    li {
+        width: 20px;
+        height: 20px;
+        display: inline-block;
+        list-style: none;
+        border-radius: 50%;
+        background-color: pink;
+        cursor: pointer;
+    }
+
+    .change {
+        width: 30px;
+        height: 30px;
+        margin: 0 -5px;
+        border-radius: 50%;
+        background-color: skyblue;
+    }
+</style>
+
+<body>
+    <div class="box"></div>
+    <div class="footer">
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <script>
+        let timer;
+        let currentIndex = 0; // 当前图片索引
+        const ul = document.querySelector('ul');
+        const bg = document.querySelector('.box');
+        const imgs = [
+            { url: '1.png' },
+            { url: '2.png' },
+            { url: '3.png' },
+            { url: '4.png' },
+            { url: '5.png' }
+        ];
+
+        // 绑定图片和小圆点
+        function bond_li(chose = [], i, bg, imgs = []) {
+            bg.style.background = `url(${imgs[i].url}) no-repeat top center/cover`;
+            for (let j = 0; j < chose.length; j++) {
+                if (chose[j].className == 'change') {
+                    chose[j].classList.remove('change');
+                }
+            }
+            chose[i].classList.add('change');
+            currentIndex = i; // 更新当前索引
+        }
+
+        // 自动播放函数
+        function autoPlay() {
+            timer = setInterval(() => {
+                currentIndex = (currentIndex + 1) % imgs.length; // 循环播放
+                bond_li(chose, currentIndex, bg, imgs);
+            }, 1000); // 每2秒切换一次
+        }
+
+        // 停止自动播放
+        function stopAutoPlay() {
+            clearInterval(timer);
+        }
+
+        // 获取所有小圆点
+        const chose = document.querySelectorAll('.footer ul li');
+
+        // 为每个小圆点添加鼠标事件
+        for (let i = 0; i < chose.length; i++) {
+            chose[i].addEventListener('mouseenter', function () {
+                stopAutoPlay(); // 停止自动播放
+                bond_li(chose, i, bg, imgs);
+            });
+
+            chose[i].addEventListener('mouseleave', function () {
+                // 鼠标移出小圆点时重新开始自动播放
+                autoPlay();
+            });
+        }
+
+        // 为图片添加鼠标事件
+        bg.addEventListener('mouseenter', function () {
+            stopAutoPlay(); // 鼠标移到图片时停止自动播放
+        });
+
+        bg.addEventListener('mouseleave', function () {
+            autoPlay(); // 鼠标移出图片时重新开始自动播放
+        });
+
+        // 初始化：移除所有change类，设置第一个为active，并开始自动播放
+        for (let j = 0; j < chose.length; j++) {
+            if (chose[j].className == 'change') {
+                chose[j].classList.remove('change');
+            }
+        }
+        chose[0].classList.add('change');
+        autoPlay(); // 开始自动播放
+    </script>
+</body>
+
+</html>

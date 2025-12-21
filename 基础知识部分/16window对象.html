@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .box {
+        width: 100px;
+        height: 100px;
+        background-color: pink;
+    }
+</style>
+
+<body>
+    <div class="box"></div>
+    <button>刷新</button>
+    <!-- 
+    BOM事件：浏览器对象模型
+            window对象是一个全局对象，可以说是js的顶级对象
+            分为：
+                1.navigator
+                2.location
+                3.document
+                4.history
+                5.screen
+            像document,alert(),console.log()这些都是window的属性和方法
+            基本BOM的属性和方法都是window的
+            像是var声明的变量才能用window使用:
+                所有通过var定义在全局作用域的变量，函数都会变成window对象的属性和方法
+                window对象下的属性和方法调用，window都可以省略
+    js执行机制：
+        js语言的一大特点就是单线程（只运行在pc的gpu渲染线程），也就是说，同一时间只能做一件事，例如对dom元素的执行和删除不能同时进行
+        因此所有的任务需要排队，前一个任务结束，才会执行后一个任务
+        但是如果js的执行时间过长，会造成页面的渲染不连贯，导致页面渲染加载阻塞的感觉
+
+        允许js创建多个线程，js中就出现了同步和异步
+            同步：程序的执行顺序和任务的排列顺序是一致的
+            异步：程序的执行顺序和任务的排列顺序不一致
+
+            同步任务：在主线程上执行，形成一个执行栈
+            异步任务：js的异步是通过回调函数实现的
+                一般而言，异步任务分为三种类型：
+                    1.普通事件，如click，resize
+                    2.资源加载，如load，error
+                    3.定时器：包括setinterval，setTimeout
+                异步任务相关添加到任务队列中
+        1.先执行执行线的同步任务
+        2.异步任务放入任务队列中
+        3.一旦执行栈中的所有同步任务执行完毕，系统就会按次序读取任务队列中的异步任务
+        被读取到的异步任务结束等待状态，进入执行栈，开始执行
+
+        js的主线程：执行栈，单线程，优先执行同步任务
+        浏览器（WEB API)：获取异步任务，多线程的监视异步任务的状态，异步任务就绪后送入任务队列
+        任务队列：主线程的同步任务清空后，将准备好的异步任务依次推入主线程执行
+        事件循环：event loop
+            主线程不断的执行任务和获取任务
+
+    location对象：location的数据类型是对象，它拆分并保存了url地址的各个组成部分
+        常用属性和方法：
+            href属性：获取完整的url地址，对其赋值时用于地址的跳转
+                经常用href 利用js的方法去跳转页面
+            search属性：获取地址中携带的参数，符号？后面的部分
+            hash属性：获取地址中的哈希值，符号#后面的部分
+            reload方法：用来刷新当前页面，传入参数true时表示强制刷新
+
+    navigator对象：navigator的数据类型是对象，该对象记录了浏览器自身的相关信息
+        常用属性和方法：
+            userAgent：检测浏览器的版本和运行平台
+
+    history对象：history的数据类型是对象，主要管理历史记录，该对象与浏览器地址栏的操作相对应，如前进，后退，历史记录等
+        常用属性和方法：
+            back():可以后退的功能
+            forward():前进功能
+            go(参数):前进后退功能，参数是1则前进一个页面，-1则后退一个页面
+
+    -->
+    <script>
+        console.log(+new Date())
+        var num = 10;
+        console.log(window.num);
+        const box = document.querySelector('.box');
+        // setTimeout(() => {
+        //     console.log(+new Date())
+        //     box.style.display = 'none';
+        //     location.href = 'http://www.baidu.com';
+        // }, 5000);
+        console.log(window.location);
+        console.log(location.href);
+        // document.documentElement.addEventListener('click', function () {
+        //     location.href = 'http://www.baidu.com';
+        // })
+        let time = 5;
+        let timer = setInterval(() => {
+            if (time === 0) {
+                clearInterval(timer);
+                // location.href = 'http://www.baidu.com';
+            }
+            box.innerHTML = `倒计时还剩${time}秒`;
+            time--;
+        }, 1000);
+        const reload = document.querySelector('button');
+        reload.addEventListener('click', function () {
+            location.reload();
+        })
+        console.log(navigator.userAgent);
+
+    </script>
+</body>
+
+</html>

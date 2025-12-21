@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function addGrad(a) {
+            let sum = 0;
+            for (let i = 0; i < a.length; i++) {
+                sum += a[i];
+            }
+            return sum;
+        }
+        let classes = Number(prompt('输入要传入的数据个数'));
+        let a = [];
+        for (let i = 0; i < classes; i++) {
+            a.push(Number(prompt(`输入第${i + 1}个数`)));
+        }
+        console.log(addGrad(a));
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 
+    实例成员；
+        通过构造函数创建的对象称为实例对象，实例对象中的属性和方法称为实例成员（实例属性和实例方法）
+    静态成员：
+        构造函数的属性和方法被称为静态成员（静态属性和静态方法）,这种成员就算是实例化的对象也无法获取，只能通过构造函数获取
+        相当于是公共属性和方法
+    例如：
+        function Person() {
+
+        }
+        Person.chat = 'human';
+        Person.walk = () => {
+            console.log('data');
+        }
+        console.log(Person.chat);
+        Person.walk();
+    不通过实例对象，而是构造函数的属性和方法
+    JavaScript 中，所有函数都有一个内置的 name 属性，
+    用于返回函数的名称，这个属性在 ES6+ 中被规范为 只读（writable: false），无法通过直接赋值覆盖。
+    -->
+    <script>
+        function Person() {
+
+        }
+        Person.chat = 'human';
+        Person.walk = () => {
+            console.log('data');
+        }
+        console.log(Person.chat);
+        Person.walk();
+    </script>
+</body>
+
+</html>

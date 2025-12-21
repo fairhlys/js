@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 
+    箭头函数：适用于匿名函数
+        语法：
+        强烈建议参数加上括号
+            1.只有一个形参的时候：
+                const data = x=>{};由于只有一个参数，可以不在形参外加小括号
+                const data = x => console.log('data');函数体只有一行代码时，大括号都不用
+                const data = x=>x+x;这里居然还有返回值，返回x+x;个人不建议这么写
+            2.加括号的函数体返回对象字面量表达式,返回对象（用这种方式相当于结构体了）
+            const fn1 = (uname) => ({ name: uname })
+            fn1('data')
+        箭头函数参数： 
+            1.普通函数由arguments动态参数
+            2.箭头函数没有arguments动态参数，但是有剩余参数...args
+        箭头参数的this：
+            箭头函数不会创建自己的this，它只会从自己的作用域链的上一层沿用this
+            对象方法箭头函数的this：
+                const obj = {
+                uname: 'teacher',
+                sayHi: () => {
+                console.log(this);
+                }
+                }
+                obj.sayHi();
+            如果是普通函数，this指的就是obj，因为是obj调用的sayhi，但是箭头函数没有this，而且是window调用的obj，
+            所以this指的就是window
+
+    -->
+    <script>
+        const fun = function () {
+
+        }
+        const fn = (a, ...c) => {
+            console.log(...c);
+        }
+        fn(1, 2, 3, 4, 5);
+        const fn1 = (uname) => ({ name: uname })
+        fn1('data')
+        const add = (a, b, ...c) => {
+
+        }
+        const obj = {
+            uname: 'teacher',
+            sayHi: () => {
+                console.log(this);
+            }
+        }
+        obj.sayHi();
+    </script>
+</body>
+
+</html>

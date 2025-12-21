@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        height: 3000px;
+    }
+
+    .fa {
+        width: 200px;
+        height: 200px;
+        background-color: purple;
+    }
+
+    .son {
+        width: 100px;
+        height: 100px;
+        background-color: pink;
+    }
+</style>
+
+<body>
+    <div class="fa">
+        <div class="son"></div>
+    </div>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>3</li>
+        <li>3</li>
+    </ul>
+
+    <!-- 
+     事件流的基本原理：
+     首先：捕获阶段（Capturing Phase）：事件从最外层的祖先元素开始，向内传播到目标元素（子元素）。方向是：祖先 → 父 → 子。
+     然后：目标阶段（Target Phase）：事件到达目标元素（子元素），在这里触发监听器（不考虑捕获或冒泡，按注册顺序执行）。
+     最后：冒泡阶段（Bubbling Phase）：事件从目标元素开始，向外传播到祖先元素。方向是：子 → 父 → 祖先。
+
+     事件目标确定原理：
+     当点击发生时，浏览器：
+     1. 计算点击的坐标位置,这是已经直到目的元素了，也就是说事件对象.target已经确定了，所以事件委托也能在捕获阶段
+     2. 从最外层元素开始，逐层检查哪个元素包含这个坐标
+     3. 找到最内层的元素作为事件目标 (event.target)
+     4. 开始事件流的传播
+
+    无论元素写没写addeventlistener，事件的发生是客观存在的
+    捕获就是事件的发生从外向内寻求响应，冒泡就是从内向外寻求响应
+    事件流：指的是事件完整执行过程中的流动路径
+            1.事件捕获阶段
+                    从dom的根元素开始去执行对应的事件（从外到里）
+                    事件捕获是 DOM 事件流的第一阶段，事件从最外层祖先元素向目标元素传播的过程。
+                代码：
+                    DOM.addEventListener(事件类型,事件处理函数,是否使用捕获机制);
+                这里的是否使用捕获机制，true就是捕获，false就是冒泡
+                
+            2.事件冒泡阶段
+                    当一个元素的事件被触发时，同样的事件将会在该元素的所有祖先元素中依次被触发
+                    简单理解：当一个元素的事件触发后，会依次向上调用父级元素的同名事件（同事件类型）
+                    默认存在
+            3.阻止冒泡和捕获：由于冒泡和捕获的存在，因此容易导致事件的串发，为了限制事件的触发范围，就需要阻止事件冒泡
+                    阻止事件冒泡和捕获需要拿到事件对象
+                    语法：
+                        事件对象.stopPropagation();阻止事件的流动传播，在捕获和冒泡阶段都有效
+    解绑事件：
+            对于on事件的解绑，就是对象.on事件=null；
+            对于addeventlistener，必须使用：removeEventListener(事件类型,事件处理函数)
+                此时的事件处理函数必须是外来函数的传参，而不能是匿名函数；因此匿名函数无法解绑
+                因此最好把匿名函数拿出来单独匿名
+    鼠标经过事件：
+            mouseover与mouseout会有冒泡效果
+            mouseenter与mouseleave没有冒泡效果
+           mouseover/mouseout：为精确交互设计，关注鼠标在DOM树中的具体位置变化
+           mouseenter/mouseleave：为区域状态设计，关注鼠标是否在某个元素的管辖范围内
+    两种注册事件的区别：
+            1.传统on注册（l0）
+                对于同一个对象，后面注册的事件会覆盖前面注册的同一种事件
+                直接使用null赋值就可以实现事件的解绑
+                都是冒泡阶段执行的
+            2.事件监听注册（l2）
+                解绑语法：removeEventListener（事件类型，事件处理函数）
+                后面注册的事件不会覆盖前一个（同一种事件）
+                可以在第三个参数确定是在捕获阶段还是冒泡阶段执行
+                匿名函数无法解绑
+    事件委托：
+            冒泡和捕获的应用
+            减少注册次数，可以提高程序性能
+            原理：给父元素注册事件，当触发目的元素的时候，从而触发父元素的事件
+            利用   事件对象.target  寻找到最小最底层的子元素。也就是事件到达目标阶段的目标元素
+            还可以通过   事件对象.tagName  确定目的元素是否是所需要的元素，记住所有的tagName都是大写的
+    阻止默认行为：
+            事件对象.preventDefault();
+    其他事件：
+            1.页面加载事件：加载外部资源（如图片，外联css和js等），加载完毕时触发的事件
+                    监听页面所有资源加载完毕：
+                    给window添加load事件
+                    监听初始的html文档被完全加载解析完成后，DOMContentLoaded事件被触发，而无需等待样式表和图像完全加载：
+                    给document添加DOMContentLoaded事件
+            2.页面滚动事件：滚动条在滚动的时候持续触发的事件
+                事件名：scroll
+                    监听整个页面滚动：给window添加scroll事件
+                    监听某个元素的内部滚动，直接给该元素添加即可
+                    
+                获取位置的两个属性：获取滚动条滚动部分的大小，没有单位，默认是px,只有html有，window没有
+                    html：
+                        scrollLeft：获取元素内容往左滚动的距离
+                        scrollTop：获取元素内容往上滚动的距离
+                        scroll-behavior:smooth;页面滚动到目标位置的动画
+                    对于整个页面的滚动条，用document.documentElement获取html标签
+                        document.documentElement.scrollTop甚至可以赋值，跳转到相应位置，这个和window的scrollTo方法的效果是一样的
+                    window：
+                        scrollTo(x,y): 页面滚动到(x,y)的位置，调用者一般为window
+            3.页面尺寸事件：
+                    1.resize：会在浏览器窗口尺寸改变时触发事件，window调用
+                    2.获取宽高：获取元素可见部分的宽高（不包含边框，margin，滚动条等）
+                        clientWidth：
+                        clientHeight：
+                        返回的依旧是数值型，无单位
+            4.元素的尺寸与位置：通过js方式，得到元素在页面中的位置，比如实现元素滚动到某个元素
+                    1.获取宽高：获取元素自身宽高，包括元素自身设置的宽高，padding，border
+                        offsetWidth
+                        offsetHeight
+                        获取到的是数值，方便计算，如果盒子是隐藏的，获取的结果是0
+                    2.获取位置：
+                        获取元素自己相对于带有定位的父级元素的左，上位置
+                        offsetLeft
+                        offsetTop
+                        这两个属性是只读的
+                    3.获取大小和相对于视口的位置：
+                        element.getBoundingClientRect()；
+                        方法返回元素的大小及其相对于视口的位置
+
+            做侧边栏可以根据自定义属性获取想要到达的模块
+
+                        
+
+    
+
+
+    -->
+    <script>
+        const son = document.querySelector('.son');
+        const fa = document.querySelector('.fa');
+        son.addEventListener('click', function (evt) {
+            // alert('son');
+            evt.stopPropagation();
+            //把该事件的触发限制在了该元素，阻止了冒泡
+
+        })
+        fa.addEventListener('click', function () {
+            // alert('..');
+        })
+        const ul = document.querySelector('ul');
+        ul.addEventListener('click', function (evt) {
+            evt.target.style.color = 'red';
+        })
+        window.addEventListener('scroll', function () {
+            const i = document.documentElement.scrollTop;
+            //这里的i会更新，因为时不断调用回调元素，相当于不断的初始化
+            console.log(i);
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    div {
+        width: 200px;
+        height: 200px;
+        background-color: lightblue;
+    }
+</style>
+
+<body>
+    <!-- 
+    防抖：
+        1.防抖的作用：在事件被触发n秒后再执行回调函数，如果在这n秒内又被触发，则重新计时.单位时间内，频繁触发事件，只会执行最后一次。
+            适用场景：输入框搜索，窗口缩放，按钮点击等
+        2.实现防抖的原理：利用定时器，每次触发事件时，先清除上一次的定时器，然后重新设置一个新的定时器
+        3.防抖函数的实现：
+            1.function debounce(func, wait) {
+                let timeout;
+                return function(...args) {
+                    clearTimeout(timeout);
+                    timeout = setTimeout(() => {
+                        func.apply(this, args);
+                    }, wait);
+                };
+            }运用了闭包，保存了timeout变量，目的是为了在每次调用时都能访问到同一个timeout变量，从而实现清除上一次的定时器
+                解释：
+                    func：要防抖处理的函数
+                    wait：延迟的毫秒数
+                    timeout：定时器变量
+                    返回一个新的函数，该函数在被调用时，会先清除上一次的定时器，然后重新设置一个新的定时器，延迟wait毫秒后执行func函数
+            此时debounce(mouseMove, 500)其实才是真正的事件处理函数，它的this指的是该事件的调用者dom元素，但是在setTimeout中，this指向的是window，所以要用func.apply(this, args)来保证func中的this指向正确
+            2.lodash提供的防抖来处理函数：_.debounce(func, [wait=0], [options={}])
+                func：要防抖处理的函数
+                wait：延迟的毫秒数
+                options：配置选项
+                    leading：是否在延迟开始前调用函数，默认false,具体来说就是第一次触发时是否立即执行函数
+                    trailing：是否在延迟结束后调用函数，默认true，具体来说就是停止触发n秒后是否执行函数
+                调用示例：
+                    const debouncedFn = _.debounce(originalFn, 300, { leading: true, trailing: false });
+                    leading=true，即在触发事件时，立即执行事件处理函数，然后在等待时间内不再执行；如果在等待时间内再次触发事件，则不会执行事件处理函数，直到等待事件后。
+                    trailing=true，即触发事件时不立即执行事件处理函数，而是在等待时间结束后执行；如果在等待时间内再次触发事件，则会重新计时，等待时间结束后再执行事件处理函数。
+        4.使用防抖函数：
+            const debouncedFn = debounce(originalFn, 300);
+            element.addEventListener('event', debouncedFn);
+    -->
+    <div></div>
+</body>
+<script src="./lodash.min.js"></script>
+<script>
+    const box = document.querySelector('div');
+    let i = 1;
+    function mouseMove() {
+        box.innerHTML = i++;
+    }
+    box.addEventListener('mousemove', _.debounce(mouseMove, 500, { leading: false, trailing: true }));
+    // function debounce(func, wait) {
+    //     let timeout;
+    //     return function (...args) {
+    //         clearTimeout(timeout);
+    //         timeout = setTimeout(() => {
+    //             func.apply(this, args);
+    //         }, wait);
+    //     };
+    // }
+</script>
+
+</html>

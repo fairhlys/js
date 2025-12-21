@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 
+        以下值在布尔上下文中会被转换为 false
+            false
+            0
+            -0
+            0n (BigInt 零)
+            ""、''、`` (空字符串)
+            null
+            undefined
+            NaN
+        其实很难说是看作false,当这些值与其他真值进行逻辑运算,当结果为false时,返回结果不会是false,
+        而是返回这些假值,比如说:
+                console.log(5<3 && 7);false
+                console.log(5<3 && 0);结果却是是false,但是返回值是0;
+                对于null,undefined之类的假值也一样
+        其他所有值都是真值(Truthy)，包括：
+            1, -1, 100          非零数字
+            "0", "false", " "   非空字符串
+            [], {}              数组和对象
+            function() {}       函数 -->
+</body>
+
+</html>

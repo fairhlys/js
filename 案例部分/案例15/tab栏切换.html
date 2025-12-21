@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件委托优化版</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 100px auto 5px;
+            width: 400px;
+            background-color: pink;
+            height: 50px;
+        }
+
+        span {
+            cursor: pointer;
+            padding: 10px;
+            flex: 1;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .pass {
+            border-bottom: 2px solid red;
+            color: red;
+            font-weight: bold;
+        }
+
+        .bottom {
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: repeat(2, 1fr);
+            width: 400px;
+            height: 400px;
+            background-color: skyblue;
+            gap: 5px;
+            padding: 5px;
+        }
+
+        .bottom div {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="head" id="head">
+        <span data-id="0">beauty1</span>
+        <span data-id="1">beauty2</span>
+        <span data-id="2">beauty3</span>
+        <span data-id="3">beauty4</span>
+        <span data-id="4">beauty5</span>
+    </div>
+    <div class="bottom">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <div class="bottom">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <div class="bottom">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <div class="bottom">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <div class="bottom">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <script>
+        const first = document.querySelectorAll('.bottom div:first-child');
+        const head = document.getElementById('head');
+        const bottom = document.querySelectorAll('.bottom');
+        const spans = document.querySelectorAll('.head span');
+
+        // 当前激活的索引
+        let currentActiveIndex = 0;
+
+        // 初始化函数
+        function init() {
+            // 设置所有底部区域为隐藏
+            for (let i = 0; i < bottom.length; i++) {
+                bottom[i].style.display = 'none';
+                // 为每个底部区域的第一个div设置背景图片
+                if (first[i]) {
+                    first[i].style.background = `url(${i + 1}.png) no-repeat center/cover`;
+                }
+            }
+            // 显示第一个底部区域
+            bottom[0].style.display = 'grid';
+            // 设置第一个span为激活状态
+            spans[0].classList.add('pass');
+        }
+
+        // 切换显示函数
+        function switchDisplay(index) {
+            // 移除之前激活的样式
+            spans[currentActiveIndex].classList.remove('pass');
+            bottom[currentActiveIndex].style.display = 'none';
+
+            // 设置新的激活状态
+            spans[index].classList.add('pass');
+            bottom[index].style.display = 'grid';
+
+            // 更新当前激活索引
+            currentActiveIndex = index;
+        }
+
+        // 事件委托 - 使用 mouseover 替代 mouseenter（因为 mouseover 会冒泡）
+        head.addEventListener('mouseover', function (e) {
+            // 检查事件目标是否是span
+            if (e.target.tagName === 'SPAN') {
+                const index = parseInt(e.target.dataset.id);
+
+                // 只有当切换到不同索引时才执行切换
+                if (index !== currentActiveIndex) {
+                    switchDisplay(index);
+                }
+            }
+        });
+
+        // 初始化
+        init();
+    </script>
+</body>
+
+</html>

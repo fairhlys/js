@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 
+    创建对象：
+        1.利用对象字面量创建：
+            典型的const obj = { }
+        2.利用new object创建对象    
+            const obj = new Object();
+          对应的创建属性和方法：
+            const obj = new Object({ age: 18, uname: 'check' });
+            obj.name = 'data'
+        3.利用构造函数创建对象：一种特殊的函数，主要用来初始化对象
+            利用构造函数快速批量的创建一系列类似的对象，可以利用this
+            语法：
+                function Human(name,age,gender){
+                this.name=name;
+                this.age=age;
+                this.gender=gender;    
+                }通过this给属性赋值
+                const myself =new Human('王洪文',21,'男');
+                1.但是这个不是立即执行函数，不能用箭头函数
+                2.本质上和上面的new object差不多只不过构造函数可以自定义罢了
+                3.构造函数开头字母约定是大写的，只能用new操作符执行，而使用new调用函数的行为称为实例化
+                4.构造函数无需写return，返回值即为新创建的对象，因为调用时的new
+                5.同样的new Date()和new Object()也都是构造函数
+                6.new 会自动返回填充好的对象，只有当构造函数显式 return 引用类型时，才会覆盖这个默认行为。
+                    new：1.创建新的空对象
+                         2.构造函数this指向新对象
+                         3.执行构造函数代码，修改this，添加新的属性
+                         4.返回新的对象
+
+    -->
+    <script>
+        const obj = new Object({ age: 18, uname: 'check' });
+        console.log(obj);
+        obj.name = 'data'
+        function Human(name, age, gender) {
+            this.name = name;
+            this.age = age;
+            this.gender = gender;
+        };
+        const myself = new Human('王洪文', 21, '男');
+        console.log(myself);
+        function Goods(name, price, company) {
+            this.name = name;
+            this.price = price;
+            this.company = company;
+        }
+        const phone1 = new Goods('neo8pro', 2000, 'vivo');
+        console.log(phone1);
+        console.log(new Date().toLocaleString());
+
+    </script>
+</body>
+
+</html>

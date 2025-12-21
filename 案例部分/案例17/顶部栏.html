@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .box {
+        position: relative;
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    .navHead {
+        position: fixed;
+        top: 0;
+        width: 80%;
+        height: 100px;
+        background-color: skyblue;
+        opacity: 0;
+        transition: all 0.5s;
+    }
+
+    .head {
+        width: 100%;
+        height: 400px;
+        background-color: pink;
+    }
+
+    .main {
+        width: 100%;
+        height: 3000px;
+        background-color: gray;
+    }
+</style>
+
+<body>
+    <div class="box">
+        <div class="navHead"></div>
+        <div class="head"></div>
+        <div class="main"></div>
+    </div>
+    <script>
+        const navHead = document.querySelector('.navHead');
+        const head = document.querySelector('.head');
+        const main = document.querySelector('.main');
+        console.log(main.offsetTop)
+        window.addEventListener('scroll', function () {
+            if (document.documentElement.scrollTop >= main.offsetTop) {
+                navHead.style.opacity = 1;
+            }
+            else {
+                navHead.style.opacity = 0;
+            }
+        })
+
+    </script>
+</body>
+
+</html>

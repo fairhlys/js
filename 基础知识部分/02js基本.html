@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Document</title>
+
+</head>
+
+<body>
+      <script>
+            /*
+            1.js变量
+                  变量的声明:
+                        语法:let 变量名;
+                        let是声明变量的关键字,后面是变量名,标识符
+                  变量的赋值:
+                        语法:变量名=值;
+                  变量的更新:
+                        就是重新赋值
+                        let不允许多次声明同一个变量
+                  变量名命名规则:
+                        1.不能使用关键字
+                        2.只能用下划线,字母,数字,$组成,且数字不开头
+                        3.字母严格区分大小写,Age与age是不同变量
+                        一般尊崇小驼峰命名法:
+                        第一个单词首字母小写,后面每个单词的首字母大写
+                  let与var的区别:
+                        解决var的一些问题:
+                            1.var可以先使用再声明
+                            2.var声明过的变量可以重复声明
+                            3.还有变量提升,全局变量,没有块级作用域等等问题
+            2.数组的使用:
+              一种将一组数据存储在单个变量名下的方式
+              语法:
+                  声明语法:
+                        let 数组名 = [数据1,数据2,...,数据n];
+                        数据按顺序保存,从0开始排序
+                        数组元素,下标/索引,长度
+            3.常量:
+              使用const声明的变量,当某个变量永远不会改变的时候,就可以使用const声明,而不是let
+                    语法:
+                      const 变量名
+                    常量不允许重新赋值,声明的时候必须赋值也即是初始化
+                    常量可以通过prompt输入进行初始化
+            4.js中的数据类型
+               1. number 数值类型,可以是整数,小数,整数,负数,NaN也是number类型
+               2. string 字符串类型,可以用length获取字符串的长度
+                  一般来说用单引号,双引号,反引号包裹的数据都叫字符串吗,但是单引号和双引号没有本质区别,推荐单引号
+                        1.无论单引号或者双引号必须成对使用
+                        2.单引号/双引号可以互相嵌套,但是不能自己嵌套自己(因为一个引号会和离自己最近的同样引号配对,同样的引号嵌套会出现问题)
+                        3.必要时可以使用转义符\,输出单引号或双引号
+                        4.删除字符串左右两边的空格：str.trim()
+               3.模板字符串:
+                  使用反引号包裹的字符串,内容拼接变量时,用${}包裹住变量,可以进行多行输出,也可以在字符串中嵌入变量,拼接字符串和变量
+                  语法: `${变量名}`
+                记住:不是反引号包裹着${},而是整个字符串用反引号包裹着
+
+               3. boolean 布尔类型,两个值:true和false
+               4. object  引用类型
+               5. function function类型
+               6. undefined 未定义型,表示变量未赋值,未赋值的变量默认值是undefined
+               7. null 空类型,代表的是空值,表示变量有一个空的值,而不是undefined,一般和引用类型一起使用,null+1=1,相当于给空值赋值了
+               NaN:not a number;代表计算错误,是一个不正确或者未定义的数学操作所得到的结果
+               命名未赋值   type是undefined
+               赋予null值   type是object
+               判断数据类型  typeof
+               js是弱数据类型,变量到底属于哪种,只有赋值之后,才能确认
+               java是强数据类型,定义的时候就要确定
+            5.检测数据类型
+               typeof 运算符
+               语法: typeof 数据/变量
+               返回值是一个字符串,表示数据类型,既可以作为运算符使用,也可以作为函数使用
+            6.类型转换
+               由于js是弱数据类型,使用表单,prompt输入的数据都是字符串类型,有时候需要把字符串转换为数字类型进行计算
+               因此,假如要想将通过prompt获得的两个数值相加,是必须要类型转换的
+               1.隐式转换:
+                  在某些运算中,js会自动将一种数据类型转换为另一种数据类型,这种转换叫隐式转换
+                    1.在加法运算中,如果有一个操作数是字符串类型,另一个操作数是数字类型,那么js会自动将数字类型转换为字符串类型,然后进行字符串拼接
+                      但是,如果加号单用,比如console.log(+'2')，结果是数值2
+                    2.除了加号之外的其他算术运算符,如果一个操作数是字符串类型,另一个操作数是数字类型,那么js会自动将字符串类型转换为数字类型,然后进行数学计算
+                    在这里,空字符串会被转换为0,null也是转换为0(加减法都是0)
+                    但是undefined完全不一样,它参与运算只会是NaN
+                    但是undefined==NaN这两都是假值,当0看,这里是true,当然undefined==null也是true
+                    但是undefined===NaN由于类型不同,返回false,undefined===null也是false
+               2.显示转换:
+                  使用内置的全局函数,将一种数据类型转换为另一种数据类型,这种转换叫显示转换
+                    1. Number(数据/变量):将数据/变量转换为数字类型
+                       parseInt(数据/变量):将数据/变量转换为整数类型,原则是向下取整
+                           甚至对于字符串中的数字也是如此,比如说console.log(parseInt('12.9px'))结果是12
+                           但是只能取数字在开头的字符串,比如console.log(parseInt('px12.9'))结果是NaN
+                       parseFloat(数据/变量):将数据/变量转换为浮点数类型,原则是保留小数点后面的部分
+                    2. String(数据/变量):将数据/变量转换为字符串类型
+                    3. Boolean(数据/变量):将数据/变量转换为布尔类型
+
+            */
+            //  let age;
+            //  age = 18;
+            let name = 'teacher', mul = 2;
+            // 不过还是提倡拆开写
+            let age = 18;
+            console.log(age, name, mul);
+            // 这个时候不用加单引号了,直接输出变量的字面量,也就是值 
+
+            let num1 = 10;
+            let num2 = 20;
+            let exc;
+            exc = num1;
+            num1 = num2;
+            num2 = exc;
+            console.log(num1, num2);
+            let arr = ['王洪文', '陈伯达', '江青', '张春桥'];
+            console.log(arr[0]);
+            console.log(arr.length);
+            const jk = 'pretty';
+            console.log(jk.length);
+            console.log(jk);
+            console.log(typeof (jk));
+            console.log('伟大领袖\'毛主席\'');
+            console.log('伟大领袖' + '\'毛主席\'');
+            let str1 = 1976;
+            console.log('革命事业终结于' + str1 + '年');
+            console.log(`文化大革命终结于${str1}年`);
+            let name1 = prompt('请输入姓名');
+            let age1 = prompt('请输入年龄');
+            document.write(`我叫${name1},我今年${age1}岁了`);
+            console.log(true || false);
+            console.log(1 + null);
+            // let und = prompt('请输入一个值');
+            // console.log(typeof und);
+
+            console.log(typeof +'123');//结果是number
+            console.log(+'123' + 1);//结果是124
+
+            let num3 = Number(prompt('请输入第一个数'));
+            console.log(typeof num3);
+            let num4 = Number(prompt('请输入第二个数'));
+            document.write(`两个数的的和是${num3 + num4}`);
+
+
+
+
+
+      </script>
+</body>
+
+</html>
