@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        .btn1{
-        width:150px;
-        height:40px;
-        font-size:24px;
-        font-family:'隶书';
-        background-color: yellow;
-        color:rgb(138, 51, 51);
-        border:3px solid rgb(138, 51, 51);
-        border-radius: 5px;
-    }
+        .btn1 {
+            width: 150px;
+            height: 40px;
+            font-size: 24px;
+            font-family: '隶书';
+            background-color: yellow;
+            color: rgb(138, 51, 51);
+            border: 3px solid rgb(138, 51, 51);
+            border-radius: 5px;
+        }
     </style>
     <!-- 
      js介绍：
@@ -54,7 +55,7 @@
          2.一个script标签不能在引入外部js脚本文件的同时，还定义function，一个script标签只能干一件事
          3.script标签如果用于引入外部js文件，中间最好不要有任何字符，包括换行
     -->
-   <!--  <script>
+    <!--  <script>
         /*
         1.如何声明函数 
         Java中的函数 public void suprise(){}
@@ -74,17 +75,18 @@
     <script src="../脚本/bottom.js" type="text/javascript"></script>
 
 </head>
+
 <body>
     <button class="btn1" onclick="suprise()">点我有惊喜</button>
     <!-- 内部js -->
-     <!-- script放在html文件底部附近的原因是浏览器会按照代码在文件中的顺序加载html
+    <!-- script放在html文件底部附近的原因是浏览器会按照代码在文件中的顺序加载html
       如果先加载的js期望修改其下方的html,那么它可能由于html尚未被加载而失效  -->
-     <script>
+    <script>
         alert('hello,js');
         document.write('myself');
         document.write('<h1>标题</h1>');
         console.log('check');
-        prompt('输入姓名');
-     </script>
+    </script>
 </body>
+
 </html>
