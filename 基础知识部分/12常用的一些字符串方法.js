@@ -41,3 +41,13 @@
 // repeat(count)                     重复字符串指定次数                   'ha'.repeat(3) → 'hahaha'                    ★★★★
 // padStart(targetLength, padString) 在字符串前面填充字符直到达到指定长度 '5'.padStart(3, '0') → '005'                 ★★★★
 // padEnd(targetLength, padString)   在字符串后面填充字符直到达到指定长度 '5'.padEnd(3, '0') → '500'                   ★★★★
+
+//甚至可以将字符串当成数组来访问和操作，虽然它是不可变的，但这提供了更多的灵活性和便利性。
+/* 
+字符串是不可变的（immutable），意味着一旦创建了一个字符串，就不能修改它的内容。任何对字符串的修改都会创建一个新的字符串，而不是改变原有的字符串。
+例如：
+let str = "hello";
+str[0] = "H";
+console.log(str); // 输出 "hello"，而不是 "Hello"
+虽然字符串不可变，但我们可以通过各种方法来创建新的字符串，例如使用字符串方法（如 toUpperCase()、replace() 等）或者模板字符串来生成新的字符串。
+*/
